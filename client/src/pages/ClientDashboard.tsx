@@ -235,13 +235,33 @@ export default function ClientDashboard() {
                         </div>
                         <p className="text-sm text-muted-foreground mt-2">{message.content}</p>
                         <div className="flex space-x-2 mt-3">
-                          <Button size="sm" variant="outline">Reply</Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              toast({
+                                title: "Reply Feature",
+                                description: "Message composition window would open here to reply to the project team.",
+                              });
+                            }}
+                          >
+                            Reply
+                          </Button>
                         </div>
                       </div>
                     </div>
                   ))}
                   
-                  <Button variant="ghost" className="w-full">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full"
+                    onClick={() => {
+                      toast({
+                        title: "Message Center",
+                        description: "Full message interface would expand here with conversation history and composition tools.",
+                      });
+                    }}
+                  >
                     View All Messages
                   </Button>
                 </div>
