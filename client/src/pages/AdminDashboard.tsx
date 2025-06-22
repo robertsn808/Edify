@@ -14,7 +14,7 @@ export default function AdminDashboard() {
   const { toast } = useToast();
 
   useEffect(() => {
-    if (!isLoading && user?.role !== 'admin') {
+    if (!isLoading && (user as any)?.role !== 'admin') {
       toast({
         title: "Unauthorized",
         description: "You don't have permission to access this page.",
@@ -28,7 +28,7 @@ export default function AdminDashboard() {
 
   const { data: stats, isLoading: statsLoading } = useQuery({
     queryKey: ["/api/admin/stats"],
-    enabled: !!user && user.role === 'admin',
+    enabled: !!user && (user as any).role === 'admin',
     retry: (failureCount, error) => {
       if (isUnauthorizedError(error as Error)) {
         toast({
@@ -47,7 +47,7 @@ export default function AdminDashboard() {
 
   const { data: contactForms, isLoading: contactFormsLoading } = useQuery({
     queryKey: ["/api/contact-forms"],
-    enabled: !!user && user.role === 'admin',
+    enabled: !!user && (user as any).role === 'admin',
     retry: (failureCount, error) => {
       if (isUnauthorizedError(error as Error)) {
         return false;
@@ -58,7 +58,7 @@ export default function AdminDashboard() {
 
   const { data: clients, isLoading: clientsLoading } = useQuery({
     queryKey: ["/api/clients"],
-    enabled: !!user && user.role === 'admin',
+    enabled: !!user && (user as any).role === 'admin',
     retry: (failureCount, error) => {
       if (isUnauthorizedError(error as Error)) {
         return false;
@@ -75,7 +75,7 @@ export default function AdminDashboard() {
     );
   }
 
-  if (user.role !== 'admin') {
+  if ((user as any).role !== 'admin') {
     return null;
   }
 
@@ -109,7 +109,20 @@ export default function AdminDashboard() {
               <p className="text-muted-foreground">Manage clients and business operations</p>
             </div>
             <div className="flex items-center space-x-4">
-              <Button>
+              <Button onClick={() => {
+                // For now, create a sample client
+                const sampleClient = {
+                  businessName: "New Business",
+                  contactName: "John Doe", 
+                  email: "john@newbusiness.com",
+                  phone: "555-0000",
+                  address: "123 New St",
+                  notes: "New client from admin panel",
+                  status: "pending"
+                };
+                // TODO: Add proper client creation modal
+                console.log("Creating client:", sampleClient);
+              }}>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Client
               </Button>
@@ -118,7 +131,7 @@ export default function AdminDashboard() {
                   <User className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-sm font-medium text-foreground">
-                  {user.firstName || 'Admin'} {user.lastName || 'User'}
+                  {(user as any).firstName || 'Admin'} {(user as any).lastName || 'User'}
                 </span>
               </div>
             </div>
@@ -236,8 +249,29 @@ export default function AdminDashboard() {
                           {form.message}
                         </p>
                         <div className="flex space-x-2 mt-3">
-                          <Button size="sm" variant="default">Reply</Button>
-                          <Button size="sm" variant="outline">Archive</Button>
+                          <Button 
+                            size="sm" 
+                            variant="default"
+                            onClick={() => {
+                              // Open email client with pre-filled response
+                              const subject = `Re: Your inquiry about Edify services`;
+                              const body = `Hi ${form.name},\n\nThank you for your interest in Edify's web development services. I've reviewed your message and would like to schedule a call to discuss your project requirements.\n\nBest regards,\nEdify Team`;
+                              window.open(`mailto:${form.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`);
+                            }}
+                          >
+                            Reply
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline"
+                            onClick={() => {
+                              // Mark as read/archived
+                              // TODO: Implement proper API call
+                              console.log("Archiving form:", form.id);
+                            }}
+                          >
+                            Archive
+                          </Button>
                         </div>
                       </div>
                     </div>
