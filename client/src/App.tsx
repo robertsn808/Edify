@@ -28,10 +28,10 @@ function Router() {
       ) : (
         <>
           <Route path="/" component={Home} />
-          {user?.role === 'admin' && (
+          {(user as any)?.role === 'admin' && (
             <Route path="/admin" component={AdminDashboard} />
           )}
-          {user?.role === 'client' && (
+          {(user as any)?.role === 'client' && (
             <Route path="/client" component={ClientDashboard} />
           )}
         </>
