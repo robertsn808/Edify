@@ -1,0 +1,105 @@
+🧠 Prompt: Build a Full-Stack Web App Sales Platform with Admin & Client Portals
+Goal:
+Create a polished browser-based web app that showcases and sells web applications like SPANK. This platform should include:
+
+A modern landing page modeled after top-visited sites (Apple, Stripe, Webflow, Notion)
+
+A full-featured Admin Portal
+
+A secure Client Portal
+
+A database-backed backend system
+
+Secure authentication
+
+Document handling (viewing & e-signatures)
+
+✨ Features Breakdown
+1. 🚀 Public Landing Page
+Purpose: Market and sell web apps like SPANK to small businesses.
+
+Design: Inspired by top-visited SaaS sites (Apple, Stripe, Webflow).
+
+Content Sections:
+
+Hero with call-to-action
+
+Features/Benefits of apps like SPANK
+
+Client testimonials (optional)
+
+Pricing tiers / “Get Started” flow
+
+Contact form
+
+Responsive Design: Mobile-first and fast-loading.
+
+2. 🧑‍💼 Admin Portal
+Login required (admin role)
+
+Dashboard showing:
+
+All submitted contact forms
+
+All registered clients
+
+Admin actions:
+
+Add new client with: name, business name, contact info, address, custom notes
+
+Assign credentials to new clients (create login info)
+
+View and respond to client requests/messages
+
+Upload/view/send documents to clients
+
+Track client activity
+
+3. 👤 Client Portal
+Login required (client role)
+
+Client can:
+
+View updates or messages from admin
+
+Send support requests or update requests (visible to admin)
+
+View/download documents (PDF, images, etc.)
+
+Digitally sign documents (via e-signature integration like DocuSign or SignRequest)
+
+4. 📬 Contact Form (on Landing Page)
+Inputs: name, email, message
+
+Submissions saved in backend database
+
+Viewable in Admin Portal
+
+5. 🗂️ Data Management
+All app data stored in a relational database (PostgreSQL or MongoDB)
+
+Authentication handled via JWT + role-based access
+
+Backend API (Node.js/Express or Django) for secure access and actions
+
+💻 Recommended Stack
+Frontend: Next.js or React + TailwindCSS
+
+Backend: Node.js + Express or Django REST Framework
+
+Auth: JWT (with bcrypt for password hashing)
+
+Database: PostgreSQL (or MongoDB if needed)
+
+E-signature: SignRequest, DocuSign, or open-source e-signature package
+
+Hosting: Vercel (frontend), Railway or Render (backend + DB)
+
+🔐 User Roles
+Admin
+
+Full access to contacts, clients, forms, and document uploads
+
+Client
+
+Access only to their messages, document inbox, and send requests
