@@ -287,7 +287,15 @@ export default function ClientDashboard() {
                       </div>
                       <div className="flex items-center space-x-2">
                         {document.status === 'pending' && document.requiresSignature ? (
-                          <Button size="sm">
+                          <Button 
+                            size="sm"
+                            onClick={() => {
+                              toast({
+                                title: "E-signature Opening",
+                                description: "Digital signature interface would open here.",
+                              });
+                            }}
+                          >
                             <FileSignature className="h-4 w-4 mr-1" />
                             Sign Now
                           </Button>
@@ -296,14 +304,33 @@ export default function ClientDashboard() {
                             {document.status}
                           </Badge>
                         )}
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => {
+                            // Simulate document download
+                            toast({
+                              title: "Download Started",
+                              description: `Downloading ${document.name}...`,
+                            });
+                          }}
+                        >
                           <Download className="h-4 w-4" />
                         </Button>
                       </div>
                     </div>
                   ))}
                   
-                  <Button variant="ghost" className="w-full">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full"
+                    onClick={() => {
+                      toast({
+                        title: "Feature Coming Soon",
+                        description: "Extended document management is coming in the next update.",
+                      });
+                    }}
+                  >
                     View All Documents
                   </Button>
                 </div>

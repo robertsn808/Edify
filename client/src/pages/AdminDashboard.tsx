@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { isUnauthorizedError } from "@/lib/authUtils";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { Users, FolderOpen, FileSignature, Mail, Plus, User, MoreVertical } from "lucide-react";
 import Navigation from "@/components/Navigation";
 
@@ -266,10 +267,15 @@ export default function AdminDashboard() {
                             variant="outline"
                             onClick={async () => {
                               try {
-                                await apiRequest(`/api/contact-forms/${form.id}/status`, {
+                                const response = await fetch(`/api/contact-forms/${form.id}/status`, {
                                   method: 'PATCH',
+                                  headers: {
+                                    'Content-Type': 'application/json',
+                                  },
                                   body: JSON.stringify({ status: 'archived' })
                                 });
+                                if (!response.ok) throw new Error('Failed to archive');
+                                
                                 queryClient.invalidateQueries({ queryKey: ['/api/contact-forms'] });
                                 toast({
                                   title: "Contact form archived",
@@ -354,7 +360,16 @@ export default function AdminDashboard() {
                     </div>
                   ))}
                   
-                  <Button variant="ghost" className="w-full">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full"
+                    onClick={() => {
+                      toast({
+                        title: "Feature Coming Soon",
+                        description: "Advanced client management features are coming in the next update.",
+                      });
+                    }}
+                  >
                     Manage All Clients
                   </Button>
                 </div>
