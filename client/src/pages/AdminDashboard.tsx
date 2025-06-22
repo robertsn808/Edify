@@ -111,18 +111,10 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center space-x-4">
               <Button onClick={() => {
-                // For now, create a sample client
-                const sampleClient = {
-                  businessName: "New Business",
-                  contactName: "John Doe", 
-                  email: "john@newbusiness.com",
-                  phone: "555-0000",
-                  address: "123 New St",
-                  notes: "New client from admin panel",
-                  status: "pending"
-                };
-                // TODO: Add proper client creation modal
-                console.log("Creating client:", sampleClient);
+                toast({
+                  title: "Add Client Feature",
+                  description: "Client creation form will open here. This would include fields for business details, contact info, and project requirements.",
+                });
               }}>
                 <Plus className="h-4 w-4 mr-2" />
                 Add Client
@@ -353,7 +345,16 @@ export default function AdminDashboard() {
                         <Badge className={getStatusColor(client.status)}>
                           {client.status}
                         </Badge>
-                        <Button variant="ghost" size="sm">
+                        <Button 
+                          variant="ghost" 
+                          size="sm"
+                          onClick={() => {
+                            toast({
+                              title: "Client Actions",
+                              description: "Client management menu would show options like edit, archive, or view details.",
+                            });
+                          }}
+                        >
                           <MoreVertical className="h-4 w-4" />
                         </Button>
                       </div>

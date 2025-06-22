@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { Box } from "lucide-react";
+import { Link } from "wouter";
 
 export default function Navigation() {
   const { isAuthenticated, user } = useAuth();
@@ -16,18 +17,18 @@ export default function Navigation() {
             </div>
             {isAuthenticated && (
               <div className="hidden md:flex space-x-6">
-                <a href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
                   Home
-                </a>
-                {user?.role === 'admin' && (
-                  <a href="/admin" className="text-muted-foreground hover:text-primary transition-colors">
+                </Link>
+                {(user as any)?.role === 'admin' && (
+                  <Link href="/admin" className="text-muted-foreground hover:text-primary transition-colors">
                     Admin Portal
-                  </a>
+                  </Link>
                 )}
-                {user?.role === 'client' && (
-                  <a href="/client" className="text-muted-foreground hover:text-primary transition-colors">
+                {(user as any)?.role === 'client' && (
+                  <Link href="/client" className="text-muted-foreground hover:text-primary transition-colors">
                     Client Portal
-                  </a>
+                  </Link>
                 )}
               </div>
             )}
