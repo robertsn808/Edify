@@ -148,7 +148,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-muted-foreground text-sm">Total Clients</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {statsLoading ? '...' : stats?.totalClients || 0}
+                    {statsLoading ? '...' : (stats as any)?.totalClients || 0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
@@ -164,7 +164,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-muted-foreground text-sm">Active Projects</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {statsLoading ? '...' : stats?.activeProjects || 0}
+                    {statsLoading ? '...' : (stats as any)?.activeProjects || 0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center">
@@ -180,7 +180,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-muted-foreground text-sm">Pending Signatures</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {statsLoading ? '...' : stats?.pendingSignatures || 0}
+                    {statsLoading ? '...' : (stats as any)?.pendingSignatures || 0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-yellow-500/10 rounded-lg flex items-center justify-center">
@@ -196,7 +196,7 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-muted-foreground text-sm">New Inquiries</p>
                   <p className="text-2xl font-bold text-foreground">
-                    {statsLoading ? '...' : stats?.newInquiries || 0}
+                    {statsLoading ? '...' : (stats as any)?.newInquiries || 0}
                   </p>
                 </div>
                 <div className="w-12 h-12 bg-sky-500/10 rounded-lg flex items-center justify-center">
@@ -223,14 +223,14 @@ export default function AdminDashboard() {
                     </div>
                   ))}
                 </div>
-              ) : contactForms?.length === 0 ? (
+              ) : (contactForms as any)?.length === 0 ? (
                 <div className="text-center py-8">
                   <Mail className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground">No contact forms yet</p>
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {contactForms?.slice(0, 3).map((form: any) => (
+                  {(contactForms as any)?.slice(0, 3).map((form: any) => (
                     <div key={form.id} className="flex items-start space-x-4 p-4 bg-muted rounded-lg">
                       <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
                         <User className="h-5 w-5 text-white" />
@@ -299,14 +299,14 @@ export default function AdminDashboard() {
                     </div>
                   ))}
                 </div>
-              ) : clients?.length === 0 ? (
+              ) : (clients as any)?.length === 0 ? (
                 <div className="text-center py-8">
                   <Users className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground">No clients yet</p>
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {clients?.slice(0, 3).map((client: any) => (
+                  {(clients as any)?.slice(0, 3).map((client: any) => (
                     <div key={client.id} className="flex items-center justify-between p-4 bg-muted rounded-lg">
                       <div className="flex items-center space-x-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
