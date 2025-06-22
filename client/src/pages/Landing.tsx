@@ -87,6 +87,16 @@ export default function Landing() {
                   size="lg"
                   variant="outline" 
                   className="border-2 border-white text-white hover:bg-white hover:text-primary font-semibold px-8 py-4"
+                  onClick={() => {
+                    // Scroll to features section to showcase capabilities
+                    const featuresSection = document.querySelector('[data-section="features"]');
+                    if (featuresSection) {
+                      featuresSection.scrollIntoView({ behavior: 'smooth' });
+                    } else {
+                      // Fallback: scroll to features
+                      window.scrollTo({ top: 600, behavior: 'smooth' });
+                    }
+                  }}
                 >
                   View Portfolio
                 </Button>
@@ -97,7 +107,7 @@ export default function Landing() {
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-background">
+      <section data-section="features" className="py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Why Choose Edify?</h2>
@@ -162,7 +172,11 @@ export default function Landing() {
                   <li className="flex items-center"><Check className="h-5 w-5 text-green-600 mr-3" />3 months support</li>
                   <li className="flex items-center"><Check className="h-5 w-5 text-green-600 mr-3" />Basic hosting included</li>
                 </ul>
-                <Button className="w-full" variant="outline">
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   Get Started
                 </Button>
               </CardContent>
@@ -185,7 +199,10 @@ export default function Landing() {
                   <li className="flex items-center"><Check className="h-5 w-5 text-blue-200 mr-3" />6 months support</li>
                   <li className="flex items-center"><Check className="h-5 w-5 text-blue-200 mr-3" />Premium hosting</li>
                 </ul>
-                <Button className="w-full bg-white text-primary hover:bg-gray-100">
+                <Button 
+                  className="w-full bg-white text-primary hover:bg-gray-100"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   Get Started
                 </Button>
               </CardContent>
@@ -205,7 +222,11 @@ export default function Landing() {
                   <li className="flex items-center"><Check className="h-5 w-5 text-green-600 mr-3" />12 months support</li>
                   <li className="flex items-center"><Check className="h-5 w-5 text-green-600 mr-3" />Enterprise hosting</li>
                 </ul>
-                <Button className="w-full" variant="outline">
+                <Button 
+                  className="w-full" 
+                  variant="outline"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
                   Contact Us
                 </Button>
               </CardContent>

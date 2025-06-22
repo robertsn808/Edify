@@ -264,10 +264,24 @@ export default function AdminDashboard() {
                           <Button 
                             size="sm" 
                             variant="outline"
-                            onClick={() => {
-                              // Mark as read/archived
-                              // TODO: Implement proper API call
-                              console.log("Archiving form:", form.id);
+                            onClick={async () => {
+                              try {
+                                await apiRequest(`/api/contact-forms/${form.id}/status`, {
+                                  method: 'PATCH',
+                                  body: JSON.stringify({ status: 'archived' })
+                                });
+                                queryClient.invalidateQueries({ queryKey: ['/api/contact-forms'] });
+                                toast({
+                                  title: "Contact form archived",
+                                  description: "The contact form has been archived successfully.",
+                                });
+                              } catch (error) {
+                                toast({
+                                  title: "Error",
+                                  description: "Failed to archive contact form. Please try again.",
+                                  variant: "destructive",
+                                });
+                              }
                             }}
                           >
                             Archive
@@ -277,7 +291,17 @@ export default function AdminDashboard() {
                     </div>
                   ))}
                   
-                  <Button variant="ghost" className="w-full">
+                  <Button 
+                    variant="ghost" 
+                    className="w-full"
+                    onClick={() => {
+                      // Show more contact forms or expand view
+                      toast({
+                        title: "Feature Coming Soon",
+                        description: "Extended contact form management is coming in the next update.",
+                      });
+                    }}
+                  >
                     View All Contact Forms
                   </Button>
                 </div>
