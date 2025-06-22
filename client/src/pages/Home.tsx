@@ -10,9 +10,9 @@ export default function Home() {
 
   useEffect(() => {
     if (!isLoading && user) {
-      if (user.role === 'admin') {
+      if ((user as any).role === 'admin') {
         setLocation('/admin');
-      } else if (user.role === 'client') {
+      } else if ((user as any).role === 'client') {
         setLocation('/client');
       }
     }

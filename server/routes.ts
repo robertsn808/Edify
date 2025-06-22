@@ -112,7 +112,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get('/api/clients/current', isAuthenticated, async (req: any, res) => {
     try {
       const userId = req.user.claims.sub;
-      const client = await storage.getClientByUserId(userId);
+      const user = await storage.getUser(userId);
+      
+      // If user is admin, return admin info
+      if (user?.role === 'admin') {
+        return res.json({
+          id: 0,
+          businessName: "Edify Admin",
+          contactName: user.firstName + " " + user.lastName,
+          email: user.email,
+          isAdmin: true
+        });
+      }
+      
+      let client = await storage.getClientByUserId(userId);
+      
+      // Auto-create client record if it doesn't exist for non-admin users
+      if (!client && user) {
+        client = await storage.createClient({
+          userId: userId,
+          businessName: user.firstName + " " + user.lastName + "'s Business",
+          contactName: user.firstName + " " + user.lastName,
+          email: user.email || '',
+          status: 'pending'
+        });
+      }
+      
       if (!client) {
         return res.status(404).json({ message: "Client not found" });
       }
@@ -129,15 +154,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
       
-      let messages;
+      let messages: any[] = [];
       if (user?.role === 'admin') {
         messages = await storage.getAllMessages();
       } else {
         const client = await storage.getClientByUserId(userId);
-        if (!client) {
-          return res.status(404).json({ message: "Client not found" });
+        if (client) {
+          messages = await storage.getMessagesByClientId(client.id);
         }
-        messages = await storage.getMessagesByClientId(client.id);
       }
       
       res.json(messages);
@@ -172,15 +196,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const userId = req.user.claims.sub;
       const user = await storage.getUser(userId);
       
-      let documents;
+      let documents: any[] = [];
       if (user?.role === 'admin') {
         documents = await storage.getAllDocuments();
       } else {
         const client = await storage.getClientByUserId(userId);
-        if (!client) {
-          return res.status(404).json({ message: "Client not found" });
+        if (client) {
+          documents = await storage.getDocumentsByClientId(client.id);
         }
-        documents = await storage.getDocumentsByClientId(client.id);
       }
       
       res.json(documents);
